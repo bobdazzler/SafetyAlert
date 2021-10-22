@@ -1,5 +1,6 @@
 package com.SafetyNet.Alert.Controller;
 import com.SafetyNet.Alert.JsonReader;
+import com.SafetyNet.Alert.SafetyNetData;
 import com.SafetyNet.Alert.DTO.*;
 import com.SafetyNet.Alert.Model.Persons;
 import com.SafetyNet.Alert.Service.FireStationsRepository;
@@ -33,7 +34,7 @@ public class AlertController {
 
 		@GetMapping("/firestations/stationNumber")
 		@ResponseBody
-		public List<FireStationDTO> listOfPeopleServicedByFireStation(@RequestParam String station_Number) throws ParseException {
+		public List<FireStationDTOHolder> listOfPeopleServicedByFireStation(@RequestParam String station_Number) throws ParseException {
 			logger.info("Get /firestations/stationNumber");
 			 return fireStationsRepository.listOFPeopleServicedByFireStation(station_Number);
 		}
@@ -58,7 +59,7 @@ public class AlertController {
 			return fireStationsRepository.listOfPeopleServicedByStationNumberAfterGettingAddress(address);
 		}
 		@GetMapping("/flood/stations")
-		public List<FloodStationHolderDTO> householdInStationJurisdiction (@RequestParam List<String> stations){
+		public List<FloodStationHolderDTOAndAddress> householdInStationJurisdiction (@RequestParam List <String> stations){
 			return fireStationsRepository.houseHoldInFireStationJurisdiction(stations);
 		}
 		@GetMapping("/personInfo")
@@ -70,19 +71,23 @@ public class AlertController {
 		public List<CommunityEmailDTO> communityEmail(@RequestParam String city){
 			return fireStationsRepository.gettingListOfEmailFromCity(city);
 		}
-		@GetMapping("/person")
-		public List<Persons> gettingPersons(){
-			return json.listOfPersons() ;
-			
-		}
+//		@GetMapping("/person")
+//		public List<FloodStationDTO> gettingPersons(@RequestParam String address){
+//			return fireStationsRepository.houseHoldListOfPeople(address); 
+//			
+//		}
 		@PostMapping("/person")
-		public Persons addPerson(@RequestBody Persons person) {
-			return fireStationsRepository.addingToListOfPersons(person);
+		public void addPerson(@RequestBody Persons person) {
+			 fireStationsRepository.addingToListOfPersons(person);
 		}
 		@PutMapping("/person")
-		public Persons updatePerson(@RequestParam String firstName, @RequestParam String lastName,
+		public void updatePerson(@RequestParam String firstName, @RequestParam String lastName,
 				@RequestBody Persons person){
-			return fireStationsRepository.updatingListOfPersons(person);
+			fireStationsRepository.updatingListOfPersons(person,firstName,lastName);
+		}
+		@GetMapping("/address")
+	public  List<FloodStationDTO> people_(@RequestParam String address){
+			 return fireStationsRepository.houseHoldListOfPeople(address);
 		}
 
 		
