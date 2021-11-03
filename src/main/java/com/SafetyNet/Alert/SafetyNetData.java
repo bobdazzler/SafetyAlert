@@ -20,13 +20,13 @@ public class SafetyNetData {
 	public List<FireStations> getFireStations() {
 		return firestations;
 	}
-	public void setFireStations(List<FireStations> firestations) {
-		this.firestations = firestations;
+	public void setFireStations(FireStations firestations) {
+		this.firestations.add(firestations);
 	}
 	public List<MedicalRecords> getMedicalRecords() {
 		return medicalrecords;
 	}
-	public void setMedicalRecords(List<MedicalRecords> medicalrecords) {
-		this.medicalrecords = medicalrecords;
+	public void setMedicalRecords(MedicalRecords medicalrecords) {
+		this.medicalrecords.add(medicalrecords);
 	}
 }

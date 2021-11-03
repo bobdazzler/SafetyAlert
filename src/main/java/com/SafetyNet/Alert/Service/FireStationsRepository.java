@@ -5,21 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import com.SafetyNet.Alert.DTO.*;
 import com.SafetyNet.Alert.JsonReader;
-
 import com.SafetyNet.Alert.Model.FireStations;
 import com.SafetyNet.Alert.Model.MedicalRecords;
 import com.SafetyNet.Alert.Model.Persons;
-import com.SafetyNet.Alert.SafetyNetData;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonWriter;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 public class FireStationsRepository {
@@ -41,9 +34,10 @@ public class FireStationsRepository {
 		List<FireStationDTO> peopleDetailsInStation = new ArrayList<>();
 		List<Persons> persons = jsonReader.listOfPersons();
 		try {
-			for (String address : getAddressByStationNumber(station)) {
+			List<String> addresses = getAddressByStationNumber(station);
 				for (Persons person : persons) {
-					if (person.getAddress().contains(address)) {
+					String address = person.getAddress();
+					if (addresses.contains(address)) {
 						FireStationDTO fireStationDTO = new FireStationDTO();
 						fireStationDTO.setFirstName(person.getFirstName());
 						fireStationDTO.setLastName(person.getLastName());
@@ -70,9 +64,6 @@ public class FireStationsRepository {
 					}
 
 				}
-
-
-			}
 			FireStationDTOHolder fireStationDTOHolder = new FireStationDTOHolder();
 			fireStationDTOHolder.setFireStationDTOSHolder(peopleDetailsInStation);
 			fireStationDTOHolder.setAgeSummaryForChildren(Integer.toString(childrenCount));
@@ -100,6 +91,8 @@ public class FireStationsRepository {
 			for (FireStations fireStationList : jsonReader.listOfFireStations()) {
 				if (fireStationList.getStation().equals(station)) {
 					addressesServicedByStation.add(fireStationList.getAddress());
+				}else {
+					logger.error("station does not exist make sure the station exist");
 				}
 			}
 		} catch (Exception e) {
@@ -205,15 +198,16 @@ public class FireStationsRepository {
 	public List<PhoneAlertDTO> getPhoneNumberByAddress(String station_Number) {
 		List<PhoneAlertDTO> phoneAlertDTOList = new ArrayList<>();
 		for (String address : getAddressByStationNumber(station_Number)) {
-			PhoneAlertDTO phoneAlertDTO = new PhoneAlertDTO();
+			
 			for (Persons persons : jsonReader.listOfPersons()) {
+				PhoneAlertDTO phoneAlertDTO = new PhoneAlertDTO();
 				if (persons.getAddress().equals(address)) {
 
 					phoneAlertDTO.setPhoneNumber(persons.getPhone());
-
+					phoneAlertDTOList.add(phoneAlertDTO);
 				}
 			}
-			phoneAlertDTOList.add(phoneAlertDTO);
+			
 		}
 		logger.info("Response --" + new Gson().toJson(phoneAlertDTOList));
 		return phoneAlertDTOList;
@@ -294,30 +288,29 @@ public class FireStationsRepository {
 			FloodStationHolderDTO floodStationHolderDTO = new FloodStationHolderDTO();
 			Date date = new Date();
 			String currentDate = dateFormat.format(date);	
-					for(Persons person:persons) {
-						if(person.getAddress().equals(address)) {
-							floodStationHolderDTO.setAddress(address);	
-							FloodStationDTO floodStationDTO =new FloodStationDTO();
-							floodStationDTO.setFirstName(person.getFirstName());
-							floodStationDTO.setLastName(person.getLastName());
-							floodStationDTO.setPhoneNumber(person.getPhone());
-							for(MedicalRecords medicalRecord: medicalRecords) {
-								if (medicalRecord.getFirstName().equals(person.getFirstName()) &&
-										(medicalRecord.getLastName().equals(person.getLastName()))) {
-									int ageDifferrences = ((dateFormat.parse(currentDate).getYear()) -
-											dateFormat.parse(medicalRecord.getBirthdate()).getYear());
-									String ageDifferencesString = Integer.toString(ageDifferrences);
-									floodStationDTO.setAge(ageDifferencesString);
-									floodStationDTO.setAllergies(medicalRecord.getAllergies());
-									floodStationDTO.setMedications(medicalRecord.getMedications());
-									continue;
-								}
-							}
-							listOfPeople.add(floodStationDTO);
+			for(Persons person:persons) {
+				if(person.getAddress().equals(address)) {
+					floodStationHolderDTO.setAddress(address);	
+					FloodStationDTO floodStationDTO =new FloodStationDTO();
+					floodStationDTO.setFirstName(person.getFirstName());
+					floodStationDTO.setLastName(person.getLastName());
+					floodStationDTO.setPhoneNumber(person.getPhone());
+					for(MedicalRecords medicalRecord: medicalRecords) {
+						if (medicalRecord.getFirstName().equals(person.getFirstName()) &&
+								(medicalRecord.getLastName().equals(person.getLastName()))) {
+							int ageDifferrences = ((dateFormat.parse(currentDate).getYear()) -
+									dateFormat.parse(medicalRecord.getBirthdate()).getYear());
+							String ageDifferencesString = Integer.toString(ageDifferrences);
+							floodStationDTO.setAge(ageDifferencesString);
+							floodStationDTO.setAllergies(medicalRecord.getAllergies());
+							floodStationDTO.setMedications(medicalRecord.getMedications());
 						}
-					}	
-					floodStationHolderDTO.setPeopleAffected(listOfPeople);
-					houseHolds.add(floodStationHolderDTO);
+					}
+					listOfPeople.add(floodStationDTO);
+				}
+			}	
+			floodStationHolderDTO.setPeopleAffected(listOfPeople);
+			houseHolds.add(floodStationHolderDTO);
 		} catch (Exception e) {
 			logger.error("an error occured so no flood details was displayed" + e);
 		}
@@ -327,17 +320,17 @@ public class FireStationsRepository {
 	}
 	public List<FloodStationHolderDTOAndAddress> houseHoldInFireStationJurisdiction(List<String>stations) {
 		List<FloodStationHolderDTOAndAddress> stationHolderDTOAndAddresses = new ArrayList<>();
-		
+
 		try {
 			for(String station : stations) {	
-				
+
 				for (String address : getAddressByStationNumber(station)) {
 					FloodStationHolderDTOAndAddress stationHolderDTOAndAddress = 
 							new FloodStationHolderDTOAndAddress();
 					stationHolderDTOAndAddress.setPeopleAffected(houseHoldListOfPeople(address));
 					stationHolderDTOAndAddresses.add(stationHolderDTOAndAddress);
 				}
-				
+
 			}	
 		} catch (Exception e) {
 			logger.error("an error occured so no flood details was displayed" + e);
@@ -443,60 +436,240 @@ public class FireStationsRepository {
 		return emails;
 
 	}
-
 	public void addingToListOfPersons(Persons person) {
-		String nameRead;
 		try {
-			JsonParser parser = new JsonParser();
-			Object obj = parser.parse(new FileReader("src/main/resources/data.json"));
-			JsonObject jsonObject = (JsonObject) obj;
-			JsonArray msg = (JsonArray)jsonObject.get("persons");
-			Iterator<JsonElement> iterator = msg.iterator();
-			while(iterator.hasNext()) {
-				nameRead = iterator.next().toString();
-				System.out.println(nameRead);
-			}
-			Persons persons = new Persons();
-			persons.setFirstName(person.getFirstName());
-			persons.setLastName(person.getLastName());
-			persons.setAddress(person.getAddress());
-			persons.setEmail(person.getEmail());
-			persons.setPhone(person.getPhone());
-			persons.setCity(person.getCity());
-			persons.setZip(person.getZip());
-			Gson gson = new Gson();
-			gson.toJson(persons);
-
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			// create new node item
+			ObjectNode newNode = new ObjectNode(mapper.getNodeFactory());
+			newNode.put("firstName", person.getFirstName());
+			newNode.put("lastName", person.getLastName());
+			newNode.put("address", person.getAddress());
+			newNode.put("city", person.getCity());
+			newNode.put("zip", person.getZip());
+			newNode.put("phone", person.getPhone());
+			newNode.put("email", person.getEmail());
+			// get array node
+			ArrayNode personsArray = (ArrayNode) root.get("persons");
+			// add new ObjectNode
+			personsArray.add(newNode);
+			// serialise root
 			FileWriter file = new FileWriter("src/main/resources/data.json",false);
-			JsonWriter jw = new JsonWriter(file);
-			iterator = msg.iterator();
-			SafetyNetData emps = new SafetyNetData();
-			while(iterator.hasNext()) {
-				emps.setPersons(gson.fromJson(iterator.next().toString(), Persons.class));
+			file.write(mapper.writeValueAsString(root));
+			file.close();
+
+
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+ fFE);
+		} catch (IOException e) {
+			logger.error("an input and out put error was thrown "+e);
+		} 
+	}
+	public void updatingListOfPersons(Persons persons) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			ArrayNode personsArray = (ArrayNode) root.get("persons");
+			for(int i=0;i< personsArray.size();i++) {
+				if(persons.getFirstName().equals(personsArray.get(i).findValue("firstName").asText())&&
+						persons.getLastName().equals(personsArray.get(i).findValue("lastName").asText())){
+					((ObjectNode)personsArray.get(i)).put("address", persons.getAddress());
+					((ObjectNode)personsArray.get(i)).put("city", persons.getCity());
+					((ObjectNode)personsArray.get(i)).put("zip", persons.getZip());
+					((ObjectNode)personsArray.get(i)).put("phone", persons.getPhone());
+					((ObjectNode)personsArray.get(i)).put("email", persons.getEmail());
+
+				}
+				personsArray.set(i,personsArray.get(i));
 			}
-			emps.setPersons(persons);
-			gson.toJson(emps, SafetyNetData.class, jw);
+			FileWriter file = new FileWriter("src/main/resources/data.json",false);
+			file.write(mapper.writeValueAsString(root));
 			file.close();
 
 		}catch(FileNotFoundException fFE) {
 			logger.error("file not found error "+ fFE);
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
-		}
-
+		} 
 	}
-	public void updatingListOfPersons(Persons person, String firstName, String lastName) {
-		for (Persons persons : jsonReader.listOfPersons()) {
-			if (firstName.equals(persons.getFirstName()) && lastName.equals(persons.getLastName())) {
-				persons.setAddress(person.getAddress());
-				persons.setCity(person.getCity());
-				persons.setEmail(person.getEmail());
-				persons.setPhone(person.getPhone());
-				persons.setZip(person.getZip());
-				return;
-			} else {
-				logger.info("person does not exist record cannot be updated");
+	public void deletingFromListOfPersons(Persons persons) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			ArrayNode personsArray = (ArrayNode) root.get("persons");
+			for(int i=0;i< personsArray.size();i++) {
+				if(persons.getFirstName().equals(personsArray.get(i).findValue("firstName").asText())&&
+						persons.getLastName().equals(personsArray.get(i).findValue("lastName").asText())){
+				}
+				personsArray.remove(i);
 			}
+			FileWriter file = new FileWriter("src/main/resources/data.json",false);
+			file.write(mapper.writeValueAsString(root));
+			file.close();
+
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+ fFE);
+		} catch (IOException e) {
+			logger.error("an input and out put error was thrown "+e);
+		} 
+	}
+	public void addingToListOfFireStations(FireStations fireStation) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			// create new node item
+			ObjectNode newNode = new ObjectNode(mapper.getNodeFactory());
+			newNode.put("address", fireStation.getAddress());
+			newNode.put("station", fireStation.getStation());
+
+			// get array node
+			ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
+			// add new ObjectNode
+			fireStationArray.add(newNode);
+			// serialise root
+			FileWriter file = new FileWriter("src/main/resources/data.json",false);
+			file.write(mapper.writeValueAsString(root));
+			file.close();
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+ fFE);
+		} catch (IOException e) {
+			logger.error("an input and out put error was thrown "+e);
+		} 
+	}
+	/**
+	 * 
+	 * @param fire where fire holds the object fireStation
+	 * @param address where address holds the field address to be compared with the already existing 
+	 * firestation address before the update is made 
+	 * 
+	 */
+	public void updatingListOfFireStation(FireStations fire,String address) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
+			for(int i =0; i<fireStationArray.size();i++) {
+				if(fire.getStation().equals(fireStationArray.get(i).findValue("station").asText())&&
+						address.equals(fireStationArray.get(i).findValue("address").asText())) {
+					((ObjectNode)fireStationArray.get(i)).put("address", fire.getAddress());
+				}
+				fireStationArray.set(i,fireStationArray.get(i));
+			}
+			FileWriter file = new FileWriter("src/main/resources/data.json",false);
+			file.write(mapper.writeValueAsString(root));
+			file.close();
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+fFE);
+		}catch(IOException e) {
+			logger.error("an input and out put error was thrown "+e);
 		}
 	}
-}
+	public void deletingFromListOFFireStation(FireStations fire) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
+			for(int i =0; i<fireStationArray.size();i++) {
+				if(fire.getStation().equals(fireStationArray.get(i).findValue("station").asText())&&
+						fire.getAddress().equals(fireStationArray.get(i).findValue("address").asText())) {
+				}
+				fireStationArray.remove(i);
+			}
+			FileWriter file = new FileWriter("src/main/resources/data.json",false);
+			file.write(mapper.writeValueAsString(root));
+			file.close();
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+fFE);
+		}catch(IOException e) {
+			logger.error("an input and out put error was thrown "+e);
+		}
+	}
+	public void addingToMedicalRecords(MedicalRecords records) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			// create new node item
+			ObjectNode newNode = new ObjectNode(mapper.getNodeFactory());
+			newNode.put("firstName", records.getFirstName());
+			newNode.put("lastName", records.getLastName());
+			newNode.put("address", records.getBirthdate());
+			newNode.put("city", records.getAllergies().toString());
+			newNode.put("zip", records.getMedications().toString());
+			// get array node
+			ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
+			// add new ObjectNode
+			medicalRecordsArray.add(newNode);
+			// serialise root
+			FileWriter file = new FileWriter("src/main/resources/data.json",false);
+			file.write(mapper.writeValueAsString(root));
+			file.close();
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+fFE);
+		}catch(IOException e) {
+			logger.error("an input and out put error was thrown "+e);
+		}
+		
+	}
+	public void updatingMedicalRecords(MedicalRecords records) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
+			for(int i=0;i< medicalRecordsArray.size();i++) {
+				if(records.getFirstName().equals(medicalRecordsArray.get(i).findValue("firstName").asText())&&
+						records.getLastName().equals(medicalRecordsArray.get(i).findValue("lastName").asText())){
+					((ObjectNode)medicalRecordsArray.get(i)).put("birthdate", records.getBirthdate());
+					((ObjectNode)medicalRecordsArray.get(i)).put("allergies", records.getAllergies().toString());
+					((ObjectNode)medicalRecordsArray.get(i)).put("medications", records.getMedications().toString());
+				}
+				medicalRecordsArray.set(i,medicalRecordsArray.get(i));
+			}
+			FileWriter file = new FileWriter("src/main/resources/data.json",false);
+			file.write(mapper.writeValueAsString(root));
+			file.close();
+
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+ fFE);
+		} catch (IOException e) {
+			logger.error("an input and out put error was thrown "+e);
+		} 
+	}
+	public void deletingRecordsFromMedicalRecords(MedicalRecords records) {
+		try {
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
+			for(int i=0;i< medicalRecordsArray.size();i++) {
+				if(records.getFirstName().equals(medicalRecordsArray.get(i).findValue("firstName").asText())&&
+						records.getLastName().equals(medicalRecordsArray.get(i).findValue("lastName").asText())){
+				}
+				medicalRecordsArray.remove(i);
+			}
+			logger.info(" deleted "+root);
+
+		}catch(FileNotFoundException fFE) {
+			logger.error("file not found error "+ fFE);
+		} catch (IOException e) {
+			logger.error("an input and out put error was thrown "+e);
+		} 
+	}
+		
+	}

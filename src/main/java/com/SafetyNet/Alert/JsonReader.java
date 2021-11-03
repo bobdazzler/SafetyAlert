@@ -63,15 +63,15 @@ public SafetyNetData jsonDataReader() {
 }
 	
 	public List<FireStations> listOfFireStations(){
-		firestations.addAll(jsonDataReader().getFireStations());
+		firestations= jsonDataReader().getFireStations();
 		return firestations;
 	}
 	public List<Persons> listOfPersons(){
-		persons.addAll(jsonDataReader().getPersons());
+		persons = jsonDataReader().getPersons();
 		return persons;
 	}
 	public List<MedicalRecords> listOfMedicalRecords(){
-		medicalrecords.addAll(jsonDataReader().getMedicalRecords());
+		medicalrecords = jsonDataReader().getMedicalRecords();
 		return medicalrecords;
 	}
 }
