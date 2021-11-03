@@ -5,8 +5,8 @@ import java.util.List;
 public class FloodStationDTO {
 	String firstName;
 	String lastName;
+	String phoneNumber;
 	String age;
-	
 	List<String> allergies;
 	List<String> medications;
 	public String getFirstName() {
@@ -20,6 +20,12 @@ public class FloodStationDTO {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	public String getAge() {
 		return age;
@@ -41,11 +47,7 @@ public class FloodStationDTO {
 	}
 	@Override
 	public String toString() {
-		return "FloodStationDTO [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", allergies="
-				+ allergies + ", medications=" + medications + "]";
+		return "FloodStationDTO [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
+				+ ", age=" + age + ", allergies=" + allergies + ", medications=" + medications + "]";
 	}
-	
-	
-	
-
 }

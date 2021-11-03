@@ -44,6 +44,7 @@ public void setMedicalrecords(List<MedicalRecords> medicalrecords) {
 }
 
 public SafetyNetData jsonDataReader() {
+	SafetyNetData safetyNetData = null;
 	try 
 	{
 		
@@ -51,28 +52,27 @@ public SafetyNetData jsonDataReader() {
 		BufferedReader reader = new BufferedReader(new InputStreamReader
 				(new FileInputStream(filePath)));
 			Gson gson = new Gson();
-			SafetyNetData safetyNetData = gson.fromJson(reader, SafetyNetData.class);
-			return safetyNetData;
+			 safetyNetData = gson.fromJson(reader, SafetyNetData.class);
+			
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
-	return null;
-	
-	}
+
+	return safetyNetData;
+}
 	
 	public List<FireStations> listOfFireStations(){
-		firestations.addAll(jsonDataReader().getFireStations());
+		firestations= jsonDataReader().getFireStations();
 		return firestations;
 	}
 	public List<Persons> listOfPersons(){
-		persons.addAll(jsonDataReader().getPersons());
+		persons = jsonDataReader().getPersons();
 		return persons;
 	}
 	public List<MedicalRecords> listOfMedicalRecords(){
-		medicalrecords.addAll(jsonDataReader().getMedicalRecords());
+		medicalrecords = jsonDataReader().getMedicalRecords();
 		return medicalrecords;
 	}
-
 }
 
