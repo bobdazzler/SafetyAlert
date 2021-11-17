@@ -5,6 +5,19 @@ public class FireStationDTO {
 	String address;
 	String phoneNumber;
 	String age;
+
+	public FireStationDTO(String firstName, String lastName, String address, String phoneNumber, String age) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.age = age;
+	}
+
+	public FireStationDTO() {
+
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

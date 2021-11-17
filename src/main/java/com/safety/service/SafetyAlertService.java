@@ -19,6 +19,7 @@ import com.safety.JsonReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 @Service
 public class SafetyAlertService {
@@ -136,22 +137,20 @@ public class SafetyAlertService {
 		Date date = new Date();
 		String currentDate = dateFormat.format(date);
 		try {
-
 			for (NamesDTOAtAddress namesDTOAtAddress : namesOfPersonsLeavingInAnAddress(address)) {
 				ChildAlertDTO childAlertDTO = new ChildAlertDTO();
-
 				for (MedicalRecords medicalRecords : jsonReader.listOfMedicalRecords()) {
 					if (medicalRecords.getFirstName().equals(namesDTOAtAddress.getFirstName())
 							&& medicalRecords.getLastName().equals(namesDTOAtAddress.getLastName())) {
 						childAlertDTO.setFirstName(namesDTOAtAddress.getFirstName());
 						childAlertDTO.setLastName(namesDTOAtAddress.getLastName());
-
 						String dateOfPerson = medicalRecords.getBirthdate();
 						int age = (dateFormat.parse(currentDate).getYear() - dateFormat.parse(dateOfPerson).getYear());
-						childAlertDTO.setAge(Integer.toString(age));
+						childAlertDTO.setAge(age);
+						logger.info("individual at address"+childAlertDTO);
 					}
 				}
-				if (Integer.parseInt(childAlertDTO.getAge()) < 18) {
+				if (childAlertDTO.getAge() < 18) {
 					childrenLivingInAddress.add(childAlertDTO);
 				} else {
 					adultLivingInAddress = "firstName " + childAlertDTO.getFirstName() + " " + " lastName " + childAlertDTO.getLastName();
@@ -168,7 +167,7 @@ public class SafetyAlertService {
 			listOfChildAndAdultDTODetails.add(childAndAdultDTO);
 		} catch (Exception e) {
 			logger.error("an error occurred no child detail found" + e);
-		}
+		} 
 		logger.info("Response --" + new Gson().toJson(listOfChildAndAdultDTODetails));
 		return listOfChildAndAdultDTODetails;
 	}
@@ -398,7 +397,7 @@ public class SafetyAlertService {
 	 * @param person
 	 * add to the array node of persons in the json file
 	 */
-	public void addingToListOfPersons(Persons person) {
+	public Persons addingToListOfPersons(Persons person) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -426,13 +425,14 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
+		return person;
 	}
 	/**
 	 * 
 	 * @param persons
 	 * update the array node of persons in the json file;
 	 */
-	public void updatingListOfPersons(Persons persons) {
+	public Persons updatingListOfPersons(Persons persons) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -458,13 +458,14 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
+		return persons;
 	}
 	/**
 	 * 
 	 * @param persons
 	 * removed person from the array node of persons if the name matches
 	 */
-	public void deletingFromListOfPersons(Persons persons) {
+	public Persons deletingFromListOfPersons(Persons persons) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -486,13 +487,14 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
+		return persons;
 	}
 	/**
 	 * 
 	 * @param fireStation
 	 * add to the array node of firestation in the json file; 
 	 */
-	public void addingToListOfFireStations(FireStations fireStation) {
+	public FireStations addingToListOfFireStations(FireStations fireStation) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -515,7 +517,8 @@ public class SafetyAlertService {
 			logger.error("file not found error "+ fFE);
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
-		} 
+		}
+		return fireStation; 
 	}
 	/**
 	 * 
@@ -524,7 +527,7 @@ public class SafetyAlertService {
 	 * firestation address before the update is made 
 	 * 
 	 */
-	public void updatingListOfFireStation(FireStations fire,String address) {
+	public FireStations updatingListOfFireStation(FireStations fire,String address) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -546,6 +549,7 @@ public class SafetyAlertService {
 		}catch(IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		}
+		return fire;
 	}
 	/**
 	 * 
@@ -577,7 +581,7 @@ public class SafetyAlertService {
 	 * 
 	 * @param records - adds to the medicalrecords node in the json file
 	 */
-	public void addingToMedicalRecords(MedicalRecords records) {
+	public MedicalRecords addingToMedicalRecords(MedicalRecords records) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -603,13 +607,14 @@ public class SafetyAlertService {
 		}catch(IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		}
+		return records;
 	}
 	/**
 	 * 
 	 * @param records
 	 * update medical record if records names matches with json file names 
 	 */
-	public void updatingMedicalRecords(MedicalRecords records) {
+	public MedicalRecords updatingMedicalRecords(MedicalRecords records) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -633,13 +638,14 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
+		return records;
 	}
 	/**
 	 * 
 	 * @param records
 	 * delete medical record if records names matches with json file names 
 	 */
-	public void deletingRecordsFromMedicalRecords(MedicalRecords records) {
+	public MedicalRecords deletingRecordsFromMedicalRecords(MedicalRecords records) {
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
@@ -660,6 +666,7 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
+		return records;
 	}
 
 }

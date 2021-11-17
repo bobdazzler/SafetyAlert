@@ -3,6 +3,8 @@ import java.util.List;
 public class ChildAndAdultDTO {
     List<ChildAlertDTO> childrenAtAddress;
     List<String>adultAtAddress;
+    public ChildAndAdultDTO() {
+	}
     public List<ChildAlertDTO> getChildrenAtAddress() {
         return childrenAtAddress;
     }
@@ -16,7 +18,12 @@ public class ChildAndAdultDTO {
         this.adultAtAddress = adultAtAddress;
     }
 
-    @Override
+    public ChildAndAdultDTO(List<ChildAlertDTO> childrenAtAddress, List<String> adultAtAddress) {
+		this.childrenAtAddress = childrenAtAddress;
+		this.adultAtAddress = adultAtAddress;
+	}
+	
+	@Override
     public String toString() {
         return "ChildAndAdultDTO{" +
                 "childrenAtAddress=" + childrenAtAddress +

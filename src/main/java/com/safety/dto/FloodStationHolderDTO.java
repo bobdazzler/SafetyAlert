@@ -3,6 +3,13 @@ import java.util.List;
 public class FloodStationHolderDTO {
 	String address;
 	List<FloodStationDTO> peopleAffected;
+	
+	public FloodStationHolderDTO(String address, List<FloodStationDTO> peopleAffected) {
+		this.address = address;
+		this.peopleAffected = peopleAffected;
+	}
+	public FloodStationHolderDTO() {
+	}
 	public String getAddress() {
 		return address;
 	}

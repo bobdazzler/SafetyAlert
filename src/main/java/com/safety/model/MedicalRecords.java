@@ -7,6 +7,16 @@ public class MedicalRecords {
 	List<String>medications;
 	List<String>allergies;
 	
+	public MedicalRecords(String firstName, String lastName, String birthdate, List<String> medications,
+			List<String> allergies) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthdate = birthdate;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
+	public MedicalRecords() {
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -37,16 +47,8 @@ public class MedicalRecords {
 	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
 	}
-	public MedicalRecords(String firstName, String lastName, String birthdate, List<String> medications,
-			List<String> allergies) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthdate = birthdate;
-		this.medications = medications;
-		this.allergies = allergies;
-	}
-	public MedicalRecords() {
-	}
+	
+	
 	@Override
 	public String toString() {
 		return "MedicalRecords [firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate

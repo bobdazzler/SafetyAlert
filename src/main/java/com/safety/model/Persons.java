@@ -18,6 +18,8 @@ public class Persons {
 		this.phone = phone;
 		this.email = email;
 	}
+	public Persons() {
+	}
 	public String getFirstName() {
 		return firstName;
 	}

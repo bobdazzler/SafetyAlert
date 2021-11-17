@@ -2,6 +2,7 @@ package com.safety.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.safety.JsonReader;
 import com.safety.dto.ChildAndAdultDTO;
 import com.safety.dto.CommunityEmailDTO;
 import com.safety.dto.FireAlertDTO;
@@ -9,6 +10,8 @@ import com.safety.dto.FireStationDTOHolder;
 import com.safety.dto.FloodStationHolderDTOAndAddress;
 import com.safety.dto.PersonInfoDTO;
 import com.safety.dto.PhoneAlertDTO;
+import com.safety.model.MedicalRecords;
+import com.safety.model.Persons;
 import com.safety.service.SafetyAlertService;
 
 import org.slf4j.Logger;
@@ -19,6 +22,7 @@ import java.util.List;
 
 @RestController
 public class AlertController {
+	JsonReader reader = new JsonReader();
 	Logger logger =  LoggerFactory.getLogger(AlertController.class);
 	SafetyAlertService safetyAlertService;
 	@Autowired
@@ -109,5 +113,10 @@ public class AlertController {
 	@GetMapping("/communityEmail")
 	public List<CommunityEmailDTO> communityEmail(@RequestParam String city){
 		return safetyAlertService.gettingListOfEmailFromCity(city);
+	}
+	@GetMapping("/medical")
+	public List<Persons> medic(){
+		System.out.println(reader.listOfPersons().toString());
+		return reader.listOfPersons();
 	}
 }

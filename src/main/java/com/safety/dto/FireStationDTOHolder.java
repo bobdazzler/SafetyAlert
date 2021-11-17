@@ -4,6 +4,17 @@ public class FireStationDTOHolder {
     List<FireStationDTO> fireStationDTOSHolder;
     String ageSummaryForChildren;
     String ageSummaryForAdult;
+
+    public FireStationDTOHolder(List<FireStationDTO> fireStationDTOSHolder, String ageSummaryForChildren, String ageSummaryForAdult) {
+        this.fireStationDTOSHolder = fireStationDTOSHolder;
+        this.ageSummaryForChildren = ageSummaryForChildren;
+        this.ageSummaryForAdult = ageSummaryForAdult;
+    }
+
+    public FireStationDTOHolder() {
+
+    }
+
     public List<FireStationDTO> getFireStationDTOSHolder() {
         return fireStationDTOSHolder;
     }

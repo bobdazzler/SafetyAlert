@@ -1,12 +1,24 @@
 package com.safety.dto;
 import java.util.List;
 public class FloodStationDTO {
+	
 	String firstName;
 	String lastName;
 	String phoneNumber;
 	String age;
 	List<String> allergies;
 	List<String> medications;
+	public FloodStationDTO() {
+	}
+	public FloodStationDTO(String firstName, String lastName, String phoneNumber, String age, List<String> allergies,
+			List<String> medications) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.age = age;
+		this.allergies = allergies;
+		this.medications = medications;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

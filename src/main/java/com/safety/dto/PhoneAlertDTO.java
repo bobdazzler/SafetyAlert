@@ -7,7 +7,13 @@ public class PhoneAlertDTO {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    @Override
+    
+    public PhoneAlertDTO(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public PhoneAlertDTO() {
+	}
+	@Override
     public String toString() {
         return "PhoneAlertDTO{" +
                 "phoneNumber='" + phoneNumber + '\'' +

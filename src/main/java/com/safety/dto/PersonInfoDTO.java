@@ -8,6 +8,21 @@ public class PersonInfoDTO {
 	String email;
 	List<String> medication;
 	List <String> allergies;
+	
+	public PersonInfoDTO(String firstName, String lastName, String age, String address, String email,
+			List<String> medication, List<String> allergies) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.address = address;
+		this.email = email;
+		this.medication = medication;
+		this.allergies = allergies;
+	}
+	
+	public PersonInfoDTO() {
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

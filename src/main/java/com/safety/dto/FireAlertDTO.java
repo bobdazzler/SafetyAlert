@@ -7,6 +7,18 @@ public class FireAlertDTO {
     String age;
     List<String>medications;
     List<String>allergies;
+    public FireAlertDTO(String stationNumber, String firstName, String lastName, String age, List<String> medications,
+			List<String> allergies) {
+		this.stationNumber = stationNumber;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
+	public FireAlertDTO() {
+	}
+	
     public String getStationNumber() {
         return stationNumber;
     }
