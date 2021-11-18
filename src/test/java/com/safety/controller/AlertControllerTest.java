@@ -35,6 +35,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = AlertController.class)
 public class AlertControllerTest {
+	
+
+	public AlertControllerTest() {
+	}
 
 	@Autowired
 	MockMvc mockMvc;
