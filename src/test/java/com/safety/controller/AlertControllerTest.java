@@ -11,7 +11,7 @@ import com.safety.dto.ChildAndAdultDTO;
 import com.safety.dto.CommunityEmailDTO;
 import com.safety.dto.FireAlertDTO;
 import com.safety.dto.FireStationDTO;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;

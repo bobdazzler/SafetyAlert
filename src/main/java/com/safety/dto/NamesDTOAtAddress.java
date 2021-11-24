@@ -2,7 +2,14 @@ package com.safety.dto;
 public class NamesDTOAtAddress {
     String firstName;
     String lastName;
-    public String getFirstName() {
+    
+    public NamesDTOAtAddress(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	public NamesDTOAtAddress() {
+	}
+	public String getFirstName() {
         return firstName;
     }
     public void setFirstName(String firstName) {

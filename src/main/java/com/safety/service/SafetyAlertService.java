@@ -1,6 +1,7 @@
 package com.safety.service;
 
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -19,7 +20,6 @@ import com.safety.JsonReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 @Service
 public class SafetyAlertService {
@@ -39,6 +39,7 @@ public class SafetyAlertService {
 		int childrenCount = 0;
 		int adultCount = 0;
 		String currentDate = dateFormat.format(date);
+		
 		List<FireStationDTOHolder> finalDetailsOfPeopleInStation = new ArrayList<>();
 		List<FireStationDTO> peopleDetailsInStation = new ArrayList<>();
 		List<Persons> persons = jsonReader.listOfPersons();
@@ -75,6 +76,7 @@ public class SafetyAlertService {
 			fireStationDTOHolder.setAgeSummaryForChildren(Integer.toString(childrenCount));
 			fireStationDTOHolder.setAgeSummaryForAdult(Integer.toString(adultCount));
 			finalDetailsOfPeopleInStation.add(fireStationDTOHolder);
+		
 		} catch (Exception e) {
 			logger.error("an error was thrown so list of people serviced by station number is not returned " + e);
 		}
@@ -93,7 +95,7 @@ public class SafetyAlertService {
 				if (fireStationList.getStation().equals(station)) {
 					addressesServicedByStation.add(fireStationList.getAddress());
 				}else {
-					logger.error("station does not exist make sure the station exist");
+					throw new IllegalArgumentException("station does not exist make sure the station exist");
 				}
 			}
 		} catch (Exception e) {
@@ -156,15 +158,17 @@ public class SafetyAlertService {
 					adultLivingInAddress = "firstName " + childAlertDTO.getFirstName() + " " + " lastName " + childAlertDTO.getLastName();
 					adultDetails.add(adultLivingInAddress);
 				}
-				for (int i = 0; i < childrenLivingInAddress.size(); i++) {
-					if (childrenLivingInAddress.size() == 0) {
-						adultDetails.clear();
-					}
-				}
+				
 			}
+			
 			childAndAdultDTO.setChildrenAtAddress(childrenLivingInAddress);
 			childAndAdultDTO.setAdultAtAddress(adultDetails);
 			listOfChildAndAdultDTODetails.add(childAndAdultDTO);
+			for (ChildAndAdultDTO childAndAdult : listOfChildAndAdultDTODetails) {
+				if (childAndAdult.getChildrenAtAddress().size() == 0) {
+					adultDetails.clear();
+				}
+			}
 		} catch (Exception e) {
 			logger.error("an error occurred no child detail found" + e);
 		} 
@@ -397,12 +401,13 @@ public class SafetyAlertService {
 	 * @param person
 	 * add to the array node of persons in the json file
 	 */
-	public Persons addingToListOfPersons(Persons person) {
+	public ObjectNode addingToListOfPersons(Persons person) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			root = (ObjectNode) mapper.readTree(jsonFile);
 			// create new node item
 			ObjectNode newNode = new ObjectNode(mapper.getNodeFactory());
 			newNode.put("firstName", person.getFirstName());
@@ -425,19 +430,20 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
-		return person;
+		return root;
 	}
 	/**
 	 * 
 	 * @param persons
 	 * update the array node of persons in the json file;
 	 */
-	public Persons updatingListOfPersons(Persons persons) {
+	public ObjectNode  updatingListOfPersons(Persons persons) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			 root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode personsArray = (ArrayNode) root.get("persons");
 			for(int i=0;i< personsArray.size();i++) {
 				if(persons.getFirstName().equals(personsArray.get(i).findValue("firstName").asText())&&
@@ -458,19 +464,20 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
-		return persons;
+		return root;
 	}
 	/**
 	 * 
 	 * @param persons
 	 * removed person from the array node of persons if the name matches
 	 */
-	public Persons deletingFromListOfPersons(Persons persons) {
+	public ObjectNode deletingFromListOfPersons(Persons persons) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode personsArray = (ArrayNode) root.get("persons");
 			for(int i=0;i< personsArray.size();i++) {
 				if(persons.getFirstName().equals(personsArray.get(i).findValue("firstName").asText())&&
@@ -487,19 +494,20 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
-		return persons;
+		return root;
 	}
 	/**
 	 * 
 	 * @param fireStation
 	 * add to the array node of firestation in the json file; 
 	 */
-	public FireStations addingToListOfFireStations(FireStations fireStation) {
+	public ObjectNode addingToListOfFireStations(FireStations fireStation) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+		 root = (ObjectNode) mapper.readTree(jsonFile);
 			// create new node item
 			ObjectNode newNode = new ObjectNode(mapper.getNodeFactory());
 			newNode.put("address", fireStation.getAddress());
@@ -518,7 +526,7 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		}
-		return fireStation; 
+		return root; 
 	}
 	/**
 	 * 
@@ -527,12 +535,13 @@ public class SafetyAlertService {
 	 * firestation address before the update is made 
 	 * 
 	 */
-	public FireStations updatingListOfFireStation(FireStations fire,String address) {
+	public ObjectNode updatingListOfFireStation(FireStations fire,String address) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
 			for(int i =0; i<fireStationArray.size();i++) {
 				if(fire.getStation().equals(fireStationArray.get(i).findValue("station").asText())&&
@@ -549,18 +558,19 @@ public class SafetyAlertService {
 		}catch(IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		}
-		return fire;
+		return root;
 	}
 	/**
 	 * 
 	 * @param fire- if object fire matches with the value gotten from the json file delete
 	 */
-	public void deletingFromListOFFireStation(FireStations fire) {
+	public ObjectNode deletingFromListOFFireStation(FireStations fire) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
 			for(int i =0; i<fireStationArray.size();i++) {
 				if(fire.getStation().equals(fireStationArray.get(i).findValue("station").asText())&&
@@ -576,17 +586,19 @@ public class SafetyAlertService {
 		}catch(IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		}
+		return root;
 	}
 	/**
 	 * 
 	 * @param records - adds to the medicalrecords node in the json file
 	 */
-	public MedicalRecords addingToMedicalRecords(MedicalRecords records) {
+	public ObjectNode addingToMedicalRecords(MedicalRecords records) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			root = (ObjectNode) mapper.readTree(jsonFile);
 			// create new node item
 			ObjectNode newNode = new ObjectNode(mapper.getNodeFactory());
 			newNode.put("firstName", records.getFirstName());
@@ -607,19 +619,20 @@ public class SafetyAlertService {
 		}catch(IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		}
-		return records;
+		return root;
 	}
 	/**
 	 * 
 	 * @param records
 	 * update medical record if records names matches with json file names 
 	 */
-	public MedicalRecords updatingMedicalRecords(MedicalRecords records) {
+	public ObjectNode updatingMedicalRecords(MedicalRecords records) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
 			for(int i=0;i< medicalRecordsArray.size();i++) {
 				if(records.getFirstName().equals(medicalRecordsArray.get(i).findValue("firstName").asText())&&
@@ -638,19 +651,20 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
-		return records;
+		return root;
 	}
 	/**
 	 * 
 	 * @param records
 	 * delete medical record if records names matches with json file names 
 	 */
-	public MedicalRecords deletingRecordsFromMedicalRecords(MedicalRecords records) {
+	public ObjectNode deletingRecordsFromMedicalRecords(MedicalRecords records) {
+		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			ObjectNode root = (ObjectNode) mapper.readTree(jsonFile);
+			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
 			for(int i=0;i< medicalRecordsArray.size();i++) {
 				if(records.getFirstName().equals(medicalRecordsArray.get(i).findValue("firstName").asText())&&
@@ -666,7 +680,7 @@ public class SafetyAlertService {
 		} catch (IOException e) {
 			logger.error("an input and out put error was thrown "+e);
 		} 
-		return records;
+		return root;
 	}
 
 }

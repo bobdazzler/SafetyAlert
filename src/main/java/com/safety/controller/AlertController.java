@@ -114,9 +114,4 @@ public class AlertController {
 	public List<CommunityEmailDTO> communityEmail(@RequestParam String city){
 		return safetyAlertService.gettingListOfEmailFromCity(city);
 	}
-	@GetMapping("/medical")
-	public List<Persons> medic(){
-		System.out.println(reader.listOfPersons().toString());
-		return reader.listOfPersons();
-	}
 }

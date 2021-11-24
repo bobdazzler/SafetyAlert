@@ -2,7 +2,7 @@ package com.safety.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +16,24 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.safety.model.FireStations;
 import com.safety.service.SafetyAlertService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = FireStationController.class)
-class FireStationControllerTest {
+public class FireStationControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
 	private SafetyAlertService safetyAlertServiceMock;
+	
 	String fire ="{\"address\":\"asaba\",\"station\":\"5\"}";
 	@Test
 	public void testAddFireStation() throws Exception {
-
-		FireStations fireStation = new FireStations("asaba","5");
+		ObjectNode root = null;
 		when(safetyAlertServiceMock.addingToListOfFireStations((Mockito.any(FireStations.class)))).
-		thenReturn(fireStation);
+		thenReturn(root);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post("/fireStation")
 				.accept(MediaType.APPLICATION_JSON).content(fire)
@@ -50,10 +51,11 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	void testUpdateFireStation() throws Exception {
+	public void testUpdateFireStation() throws Exception {
+		ObjectNode root = null;
 		FireStations fireStation = new FireStations("asaba","5");
 		when(safetyAlertServiceMock.updatingListOfFireStation((Mockito.any(FireStations.class)),Mockito.anyString())).
-		thenReturn(fireStation);
+		thenReturn(root);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put("/fireStation")
 				.param("address", "asaba")
@@ -70,10 +72,11 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	void testDeleteFireStation() throws Exception {
+	public void testDeleteFireStation() throws Exception {
+		ObjectNode root = null;
 		FireStations fireStation = new FireStations("asaba","5");
 		when(safetyAlertServiceMock.updatingListOfFireStation((Mockito.any(FireStations.class)),Mockito.anyString())).
-		thenReturn(fireStation);
+		thenReturn(root);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete("/fireStation")
 				.accept(MediaType.APPLICATION_JSON).content(fire)

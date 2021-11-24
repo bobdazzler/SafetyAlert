@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.safety.model.MedicalRecords;
 import com.safety.service.SafetyAlertService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = MedicalRecordsController.class)
-class MedicalRecordsControllerTest {
+public class MedicalRecordsControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -31,9 +33,10 @@ class MedicalRecordsControllerTest {
 	String medicalRecordsMocked =" {\"firstName\": \"John\",\"lastName\": \"Boyd\",\"birthdate\":\"03/06/1984\",\"medications\": [\"aznol:350mg\",\"hydrapermazol:100mg\"],\"allergies\": [\"nillacilan\"]}";
 	@Test
 public	void testAddMedicalRecords() throws Exception {
-		MedicalRecords medicalRecords = new MedicalRecords("John","Boyd","03/06/1984",Arrays.asList("aznol:350mg","hydrapermazol:100mg"),Arrays.asList("nillacilan"));
+		ObjectNode root = null;
+	//	MedicalRecords medicalRecords = new MedicalRecords("John","Boyd","03/06/1984",Arrays.asList("aznol:350mg","hydrapermazol:100mg"),Arrays.asList("nillacilan"));
 		when(safetyAlertServiceMock.addingToMedicalRecords((Mockito.any(MedicalRecords.class)))).
-		thenReturn(medicalRecords);
+		thenReturn(root);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post("/medicalRecords")
 				.accept(MediaType.APPLICATION_JSON).content(medicalRecordsMocked)
@@ -47,10 +50,11 @@ public	void testAddMedicalRecords() throws Exception {
 	}
 
 	@Test
-	void testUpdateMedicalRecords() throws Exception {
-		MedicalRecords medicalRecords = new MedicalRecords("John","Boyd","03/06/1984",Arrays.asList("aznol:350mg","hydrapermazol:100mg"),Arrays.asList("nillacilan"));
+public	void testUpdateMedicalRecords() throws Exception {
+		ObjectNode root = null;
+		//MedicalRecords medicalRecords = new MedicalRecords("John","Boyd","03/06/1984",Arrays.asList("aznol:350mg","hydrapermazol:100mg"),Arrays.asList("nillacilan"));
 		when(safetyAlertServiceMock.addingToMedicalRecords((Mockito.any(MedicalRecords.class)))).
-		thenReturn(medicalRecords);
+		thenReturn(root);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put("/medicalRecords")
 				.accept(MediaType.APPLICATION_JSON).content(medicalRecordsMocked)
@@ -64,10 +68,11 @@ public	void testAddMedicalRecords() throws Exception {
 	}
 
 	@Test
-	void testDeletingRecordFromMedicalRecords() throws Exception {
-		MedicalRecords medicalRecords = new MedicalRecords("John","Boyd","03/06/1984",Arrays.asList("aznol:350mg","hydrapermazol:100mg"),Arrays.asList("nillacilan"));
+public	void testDeletingRecordFromMedicalRecords() throws Exception {
+		ObjectNode root = null;
+		//MedicalRecords medicalRecords = new MedicalRecords("John","Boyd","03/06/1984",Arrays.asList("aznol:350mg","hydrapermazol:100mg"),Arrays.asList("nillacilan"));
 		when(safetyAlertServiceMock.addingToMedicalRecords((Mockito.any(MedicalRecords.class)))).
-		thenReturn(medicalRecords);
+		thenReturn(root);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete("/medicalRecords")
 				.accept(MediaType.APPLICATION_JSON).content(medicalRecordsMocked)
