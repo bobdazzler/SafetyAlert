@@ -65,10 +65,4 @@ public class PersonInfoDTO {
 	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
 	}
-	@Override
-	public String toString() {
-		return "PersonInfoDTO [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", address=" + address
-				+ ", email=" + email + ", medication=" + medication + ", allergies=" + allergies + "]";
-	}
-
 }

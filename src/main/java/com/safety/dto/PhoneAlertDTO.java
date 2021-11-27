@@ -13,10 +13,4 @@ public class PhoneAlertDTO {
 	}
 	public PhoneAlertDTO() {
 	}
-	@Override
-    public String toString() {
-        return "PhoneAlertDTO{" +
-                "phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
 }

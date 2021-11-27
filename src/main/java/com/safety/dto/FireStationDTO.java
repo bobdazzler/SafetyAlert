@@ -48,14 +48,4 @@ public class FireStationDTO {
 	public void setAge(String age) {
 		this.age = age;
 	}
-	@Override
-	public String toString() {
-		return "FireStationDTO{" +
-				"firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", address='" + address + '\'' +
-				", phoneNumber='" + phoneNumber + '\'' +
-				", age='" + age + '\'' +
-				'}';
-	}
 }

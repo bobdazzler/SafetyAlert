@@ -55,9 +55,4 @@ public class FloodStationDTO {
 	public void setMedications(List<String> medications) {
 		this.medications = medications;
 	}
-	@Override
-	public String toString() {
-		return "FloodStationDTO [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
-				+ ", age=" + age + ", allergies=" + allergies + ", medications=" + medications + "]";
-	}
 }

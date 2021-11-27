@@ -434,27 +434,27 @@ public class SafetyAlertService {
 	}
 	/**
 	 * 
-	 * @param persons
+	 * @param person
 	 * update the array node of persons in the json file;
 	 */
-	public ObjectNode  updatingListOfPersons(Persons persons) {
+	public ObjectNode  updatingListOfPersons(Persons person) {
 		ObjectNode root = null;
 		try {
-			File jsonFile = new File("src/main/resources/data.json");
+			File jsonFile = new File( "src/main/resources/data.json");
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			 root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode personsArray = (ArrayNode) root.get("persons");
 			for(int i=0;i< personsArray.size();i++) {
-				if(persons.getFirstName().equals(personsArray.get(i).findValue("firstName").asText())&&
-						persons.getLastName().equals(personsArray.get(i).findValue("lastName").asText())){
-					((ObjectNode)personsArray.get(i)).put("address", persons.getAddress());
-					((ObjectNode)personsArray.get(i)).put("city", persons.getCity());
-					((ObjectNode)personsArray.get(i)).put("zip", persons.getZip());
-					((ObjectNode)personsArray.get(i)).put("phone", persons.getPhone());
-					((ObjectNode)personsArray.get(i)).put("email", persons.getEmail());
-				}
-				personsArray.set(i,personsArray.get(i));
+				if(person.getFirstName().equals(personsArray.get(i).get("firstName").asText())&&
+						person.getLastName().equals(personsArray.get(i).get("lastName").asText())){
+					((ObjectNode)personsArray.get(i)).put("address", person.getAddress());
+					((ObjectNode)personsArray.get(i)).put("city", person.getCity());
+					((ObjectNode)personsArray.get(i)).put("zip", person.getZip());
+					((ObjectNode)personsArray.get(i)).put("phone", person.getPhone());
+					((ObjectNode)personsArray.get(i)).put("email", person.getEmail());
+					personsArray.set(i,personsArray.get(i));
+				}	
 			}
 			FileWriter file = new FileWriter("src/main/resources/data.json",false);
 			file.write(mapper.writeValueAsString(root));
@@ -471,7 +471,7 @@ public class SafetyAlertService {
 	 * @param persons
 	 * removed person from the array node of persons if the name matches
 	 */
-	public ObjectNode deletingFromListOfPersons(Persons persons) {
+	public ObjectNode deletingFromListOfPersons(Persons person) {
 		ObjectNode root = null;
 		try {
 			File jsonFile = new File("src/main/resources/data.json");
@@ -480,10 +480,10 @@ public class SafetyAlertService {
 			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode personsArray = (ArrayNode) root.get("persons");
 			for(int i=0;i< personsArray.size();i++) {
-				if(persons.getFirstName().equals(personsArray.get(i).findValue("firstName").asText())&&
-						persons.getLastName().equals(personsArray.get(i).findValue("lastName").asText())){
+				if(person.getFirstName().equals(personsArray.get(i).get("firstName").asText())&&
+						person.getLastName().equals(personsArray.get(i).get("lastName").asText())){
+					personsArray.remove(i);
 				}
-				personsArray.remove(i);
 			}
 			FileWriter file = new FileWriter("src/main/resources/data.json",false);
 			file.write(mapper.writeValueAsString(root));
@@ -544,11 +544,11 @@ public class SafetyAlertService {
 			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
 			for(int i =0; i<fireStationArray.size();i++) {
-				if(fire.getStation().equals(fireStationArray.get(i).findValue("station").asText())&&
-						address.equals(fireStationArray.get(i).findValue("address").asText())) {
+				if(fire.getStation().equals(fireStationArray.get(i).get("station").asText())&&
+						address.equals(fireStationArray.get(i).get("address").asText())) {
 					((ObjectNode)fireStationArray.get(i)).put("address", fire.getAddress());
+					fireStationArray.set(i,fireStationArray.get(i));
 				}
-				fireStationArray.set(i,fireStationArray.get(i));
 			}
 			FileWriter file = new FileWriter("src/main/resources/data.json",false);
 			file.write(mapper.writeValueAsString(root));
@@ -573,10 +573,12 @@ public class SafetyAlertService {
 			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
 			for(int i =0; i<fireStationArray.size();i++) {
-				if(fire.getStation().equals(fireStationArray.get(i).findValue("station").asText())&&
-						fire.getAddress().equals(fireStationArray.get(i).findValue("address").asText())) {
+				if(fire.getStation().equals(fireStationArray.get(i).get("station").asText())&&
+						fire.getAddress().equals(fireStationArray.get(i).get("address").asText())) {
+					fireStationArray.remove(i);
+					break;
 				}
-				fireStationArray.remove(i);
+				
 			}
 			FileWriter file = new FileWriter("src/main/resources/data.json",false);
 			file.write(mapper.writeValueAsString(root));
@@ -635,13 +637,16 @@ public class SafetyAlertService {
 			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
 			for(int i=0;i< medicalRecordsArray.size();i++) {
-				if(records.getFirstName().equals(medicalRecordsArray.get(i).findValue("firstName").asText())&&
-						records.getLastName().equals(medicalRecordsArray.get(i).findValue("lastName").asText())){
+				if(records.getFirstName().equals(medicalRecordsArray.get(i).get("firstName").asText())&&
+						records.getLastName().equals(medicalRecordsArray.get(i).get("lastName").asText())){
 					((ObjectNode)medicalRecordsArray.get(i)).put("birthdate", records.getBirthdate());
 					((ObjectNode)medicalRecordsArray.get(i)).put("allergies", records.getAllergies().toString());
 					((ObjectNode)medicalRecordsArray.get(i)).put("medications", records.getMedications().toString());
+					
+					medicalRecordsArray.set(i,medicalRecordsArray.get(i));
+					break;
 				}
-				medicalRecordsArray.set(i,medicalRecordsArray.get(i));
+				
 			}
 			FileWriter file = new FileWriter("src/main/resources/data.json",false);
 			file.write(mapper.writeValueAsString(root));
@@ -667,10 +672,11 @@ public class SafetyAlertService {
 			root = (ObjectNode) mapper.readTree(jsonFile);
 			ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
 			for(int i=0;i< medicalRecordsArray.size();i++) {
-				if(records.getFirstName().equals(medicalRecordsArray.get(i).findValue("firstName").asText())&&
-						records.getLastName().equals(medicalRecordsArray.get(i).findValue("lastName").asText())){
+				if(records.getFirstName().equals(medicalRecordsArray.get(i).get("firstName").asText())&&
+						records.getLastName().equals(medicalRecordsArray.get(i).get("lastName").asText())){
+					medicalRecordsArray.remove(i);
 				}
-				medicalRecordsArray.remove(i);
+				
 			}
 			FileWriter file = new FileWriter("src/main/resources/data.json",false);
 			file.write(mapper.writeValueAsString(root));
@@ -682,5 +688,6 @@ public class SafetyAlertService {
 		} 
 		return root;
 	}
+
 
 }

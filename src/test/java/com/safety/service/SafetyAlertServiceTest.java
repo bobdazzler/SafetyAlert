@@ -2,33 +2,25 @@ package com.safety.service;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.safety.JsonReader;
@@ -49,9 +41,8 @@ import com.safety.model.FireStations;
 import com.safety.model.MedicalRecords;
 import com.safety.model.Persons;
 @RunWith(SpringRunner.class)
-
 public class SafetyAlertServiceTest {
-	  SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	Logger logger = LoggerFactory.getLogger(SafetyAlertServiceTest.class);
 	@InjectMocks
 	SafetyAlertService safetyAlertService;
@@ -69,8 +60,6 @@ public class SafetyAlertServiceTest {
 	public final ExpectedException exception = ExpectedException.none();
 	@Test
 	public void testListOFPeopleServicedByFireStation() {
-		//arrange
-
 		FireStationDTO fireStation = new FireStationDTO();
 		fireStation.setFirstName("Oghoro");
 		fireStation.setLastName("Bob");
@@ -86,7 +75,6 @@ public class SafetyAlertServiceTest {
 		for(FireStationDTOHolder single : methodUnderTest) {
 			assertThat(single.getAgeSummaryForAdult().equals("1"));
 		}
-
 	}
 	@Test
 	public void testListOfPeopleServicedByFireStrationfull() {
@@ -129,7 +117,6 @@ public class SafetyAlertServiceTest {
 		when(jsonReader.listOfPersons()).thenReturn(mockedPersons);
 		when(jsonReader.listOfFireStations()).thenReturn(fireStationMocked);
 		when(jsonReader.listOfMedicalRecords()).thenReturn(recordMocked);
-
 		List<String> addresses= safetyAlertService.getAddressByStationNumber("1");
 		System.out.println(addresses);
 		try {
@@ -165,7 +152,6 @@ public class SafetyAlertServiceTest {
 			System.out.println(childrenCount);
 			fireStationDTOHolder.setAgeSummaryForAdult(Integer.toString(adultCount));
 			finalDetailsOfPeopleInStation.add(fireStationDTOHolder);
-
 		}catch(Exception e) {
 			logger.error("issue with mocking"+e);
 
@@ -178,60 +164,13 @@ public class SafetyAlertServiceTest {
 		}
 	}
 	@Test
-	public void  testListOfPeopleServicedByFireStrationException(){
-			Persons persons1 = new Persons("John","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com");
-			Persons persons2 = new Persons("Jacob","Boyd","1509 Culver St","Culver","97451","841-874-6513","drk@email.com"); 
-			Persons persons3 = new Persons("Roger","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com");
-			List<Persons> mockedPersons =new ArrayList<>();
-			mockedPersons.add(persons2);
-			mockedPersons.add(persons1);
-			mockedPersons.add(persons3);
-			String medi = "aznol:350mg"+"hydrapermazol:100mg";
-			List<String> medications = new ArrayList<>();
-			medications.add(medi);
-			String med1 = "pharmacol:5000mg"+ "terazine:10mg"+ "noznazol:250mg";
-			List<String> medications1 = new ArrayList<>();
-			medications1.add(med1);
-			String all = "nillacilan";
-			List<String> allergies = new ArrayList<>();
-			allergies.add(all);
-			List<String> allergies1 = new ArrayList<>();
-			List<String> allergies2 = new ArrayList<>();
-			List<String> medications2 = new ArrayList<>();
-			MedicalRecords record1 = new MedicalRecords("John","Boyd","03/06/1984",medications,allergies );
-			MedicalRecords record2 = new MedicalRecords("Jacob","Boyd","03/06/1989",medications1, allergies1);
-			MedicalRecords record3 = new MedicalRecords("Roger","Boyd","90",medications2, allergies2);
-			List<MedicalRecords> recordMocked = new ArrayList<>();
-			recordMocked.add(record1);
-			recordMocked.add(record2);
-			recordMocked.add(record3);
-			FireStations fireStation= new FireStations("1509 Culver St","1");
-			List<FireStations> fireStationMocked = new ArrayList<>();
-			fireStationMocked.add(fireStation);
-			when(jsonReader.listOfPersons()).thenReturn(mockedPersons);
-			when(jsonReader.listOfFireStations()).thenReturn(fireStationMocked);
-			for(int i =0; i<jsonReader.listOfMedicalRecords().size();i++) {
-			when(jsonReader.listOfMedicalRecords().get(i).getBirthdate()).thenThrow(new Exception());
-			}
-			List<FireStationDTOHolder> methodUnderTest = safetyAlertService.listOFPeopleServicedByFireStation("1");
-			for(FireStationDTOHolder hold : methodUnderTest) {
-				hold.getAgeSummaryForAdult();
-				hold.getAgeSummaryForChildren();
-			}
-
-			 exception.expect(Exception.class);
-			   // exception.expectMessage("an error was thrown so list of people serviced by station number is not returned ");
-		
-	}
-	@Test
 	public void  getAddressByStationNumberWhenwrongStationIsInputed() {
 		try {
-		  safetyAlertService.getAddressByStationNumber("10");
+			safetyAlertService.getAddressByStationNumber("10");
 		}catch(IllegalArgumentException ex) {
-		assertEquals("station does not exist make sure the station exist",ex.getMessage());
+			assertEquals("station does not exist make sure the station exist",ex.getMessage());
 		}
-    }
-
+	}
 	@Test
 	public void testChildAlertAPI() {
 		//arrange
@@ -267,7 +206,6 @@ public class SafetyAlertServiceTest {
 		when(jsonReader.listOfPersons()).thenReturn(mockedPersons);
 		List<NamesDTOAtAddress> listOfNamesAtAddressMocked = safetyAlertService.namesOfPersonsLeavingInAnAddress("asaba");
 		System.out.println(listOfNamesAtAddressMocked);
-
 		try {
 			for(NamesDTOAtAddress names: listOfNamesAtAddressMocked) {
 				ChildAlertDTO child = new ChildAlertDTO();
@@ -329,7 +267,6 @@ public class SafetyAlertServiceTest {
 		when(jsonReader.listOfPersons()).thenReturn(mockedPersons);
 		List<NamesDTOAtAddress> listOfNamesAtAddressMocked = safetyAlertService.namesOfPersonsLeavingInAnAddress("asaba");
 		System.out.println(listOfNamesAtAddressMocked);
-
 		try {
 			for(NamesDTOAtAddress names: listOfNamesAtAddressMocked) {
 				ChildAlertDTO child = new ChildAlertDTO();
@@ -367,7 +304,6 @@ public class SafetyAlertServiceTest {
 		for(ChildAndAdultDTO cAADTO:methodUnderTest)
 			assertThat(cAADTO.getAdultAtAddress().isEmpty());
 	}
-
 	@Test
 	public void testGetPhoneNumberByAddress() {
 		List<PhoneAlertDTO> phoneAlertDTOList = new ArrayList<>();
@@ -388,15 +324,12 @@ public class SafetyAlertServiceTest {
 				phoneAlertDTO.setPhoneNumber(pers.getPhone());
 				phoneAlertDTOList.add(phoneAlertDTO);
 			}
-
 		}
 		List<PhoneAlertDTO> methodUnderTest = safetyAlertService.getPhoneNumberByAddress("1");
 		for(PhoneAlertDTO phone : methodUnderTest) {
 			assertThat(phone.getPhoneNumber().equals(persons1.getPhone()));
 		}
 	}
-
-
 	@Test
 	public void testListOfPeopleServicedByStationNumberAfterGettingAddress() {
 		List<FireAlertDTO> listOfPeopleServicedByStationNumber = new ArrayList<>();
@@ -456,7 +389,6 @@ public class SafetyAlertServiceTest {
 			assertThat(fireAlert.getStationNumber().equals(5));
 		}
 	}
-
 	@Test
 	public void testHouseHoldListOfPeople() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -641,57 +573,66 @@ public class SafetyAlertServiceTest {
 	}
 
 	@Test
-	public void testUpdatingListOfPersons() throws JsonProcessingException, IOException {
-		Persons persons = new Persons("John","Boyd","asaba","Culver1","97451","841-874-6512","oghorod@email.com");
-	//	Persons persons2 = new Persons("John","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com");
-		ObjectNode per = null;
-		per= safetyAlertService.updatingListOfPersons(persons);
-		
-		System.out.println(per);
-		 ArrayNode personsArray = (ArrayNode) per.get("persons");
+	public void testUpdatingListOfPersons()  {
+		Persons person = new Persons("John","Boyd","asaba","Culver1","97451","841-874-6512","oghorod@email.com");
+		//	Persons persons2 = new Persons("John","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com");
+		ObjectNode updatedPersons = safetyAlertService.updatingListOfPersons(person);
+		ArrayNode personsArray = (ArrayNode) updatedPersons.get("persons");
 		for(int i = 0; i <personsArray.size();i++) {
-		assertEquals(persons.getFirstName(),personsArray.get(i).get("firstName").asText());
-		assertEquals(persons.getLastName(),personsArray.get(i).get("lastName").asText());
-		assertEquals(persons.getAddress(),personsArray.get(i).get("address").asText());
-		assertEquals(persons.getCity(),personsArray.get(i).get("city").asText());
-		assertEquals(persons.getEmail(),personsArray.get(i).get("email").asText());
-		assertEquals(persons.getPhone(),personsArray.get(i).get("phone").asText());
-		assertEquals(persons.getZip(),personsArray.get(i).get("zip").asText());
+			if(person.getFirstName().equals(personsArray.get(i).get("firstName").asText())&&
+					person.getLastName().equals(personsArray.get(i).get("lastName").asText())){
+				assertEquals(person.getAddress(),personsArray.get(i).get("address").asText());
+				assertEquals(person.getCity(),personsArray.get(i).get("city").asText());
+				assertEquals(person.getEmail(),personsArray.get(i).get("email").asText());
+				assertEquals(person.getPhone(),personsArray.get(i).get("phone").asText());
+				assertEquals(person.getZip(),personsArray.get(i).get("zip").asText());
+			}
 		}
 	}
-
+	
 	@Test
 	public void testDeletingFromListOfPersons() {
-		Persons persons1 = new Persons("Jacob","Boyd","asaba","Culver","97451","841-874-6512","oghorod@email.com");
-		ObjectNode root = null;
-		root= safetyAlertService.deletingFromListOfPersons(persons1);
-		assertThat(root.findValues("firstName").contains("Jacob")&&root.findValues("lastName").contains("Boyd"));
+		Persons person = new Persons("Jacob","Boyd","1509 Culver St","Culver","97451","841-874-6513","drk@email.com");
+		ObjectNode nodeHoldingDeletedPerson= safetyAlertService.deletingFromListOfPersons(person);
+		ArrayNode personsArray = (ArrayNode) nodeHoldingDeletedPerson.get("persons");
+		for(int i = 0; i<personsArray.size();i++) {
+		    	 assertFalse(person.getFirstName().equals(personsArray.get(i).get("firstName").asText())&&
+							person.getLastName().equals(personsArray.get(i).get("lastName").asText()));
+             }
 	}
-
 	@Test
 	public void testAddingToListOfFireStations() {
 		FireStations fireStation= new FireStations("asaba","5");
-		ObjectNode root = null;
-		root= safetyAlertService.addingToListOfFireStations(fireStation);
+		ObjectNode root= safetyAlertService.addingToListOfFireStations(fireStation);
 		assertThat(root.findValues("address").contains("asaba"));
 	}
 
 	@Test
 	public void testUpdatingListOfFireStation() {
-		FireStations fireStation= new FireStations("asaba","5");
-		ObjectNode root = null;
-		root= safetyAlertService.updatingListOfFireStation(fireStation,"908 73rd St");
-		assertThat(root.findValues("address").contains("asaba"));
+		FireStations fireStation= new FireStations("Lagos","5");
+		String address ="908 73rd St";
+		ObjectNode root = safetyAlertService.updatingListOfFireStation(fireStation,address);
+		ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
+		for(int i =0; i<fireStationArray.size();i++) {
+			if(fireStation.getStation().equals(fireStationArray.get(i).get("station").asText())&&
+					address.equals(fireStationArray.get(i).get("address").asText())) {		
+				assertTrue(fireStation.getAddress().equals(fireStationArray.get(i).get("address").asText()));
+				assertTrue(fireStation.getStation().equals(fireStationArray.get(i).get("5").asText()));
+			}
+			
+		}
 	}
 
 	@Test
 	public void testDeletingFromListOFFireStation() {
-		FireStations fireStation= new FireStations("asaba","5");
-		ObjectNode root = null;
-		root= safetyAlertService.deletingFromListOFFireStation(fireStation);
-		assertThat(root.findValues("address").contains("asaba"));
+		FireStations fireStation= new FireStations("1509 Culver St","3");
+		ObjectNode root= safetyAlertService.deletingFromListOFFireStation(fireStation);
+		ArrayNode fireStationArray = (ArrayNode) root.get("firestations");
+		for(int i =0; i<fireStationArray.size();i++) {
+			assertFalse(fireStation.getStation().equals(fireStationArray.get(i).get("station").asText())&&
+					fireStation.getAddress().equals(fireStationArray.get(i).get("address").asText()));
+		}
 	}
-
 	@Test
 	public void testAddingToMedicalRecords() {
 		String medi = "aznol:350mg"+"hydrapermazol:100mg";
@@ -711,13 +652,20 @@ public class SafetyAlertServiceTest {
 		String medi = "aznol:350mg"+"hydrapermazol:100mg";
 		List<String> medications = new ArrayList<>();
 		medications.add(medi);
-		String all = "nillacilanUpdated";
+		String alle = "nillacilanUpdated";
 		List<String> allergies = new ArrayList<>();
-		allergies.add(all);
+		allergies.add(alle);
 		MedicalRecords record1 = new MedicalRecords("John","Boyd","03/06/2000",medications,allergies );
-		ObjectNode root = null;
-		root= safetyAlertService.updatingMedicalRecords(record1);
-		assertThat(root.findValues("birthdate").contains("03/06/2000"));
+		ObjectNode root= safetyAlertService.updatingMedicalRecords(record1);
+		ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
+		for(int i=0;i< medicalRecordsArray.size();i++) {
+			if(record1.getFirstName().equals(medicalRecordsArray.get(i).get("firstName").asText())&&
+					record1.getLastName().equals(medicalRecordsArray.get(i).get("lastName").asText())){
+				assertTrue(medicalRecordsArray.get(i).get("birthdate").asText().equals(record1.getBirthdate()));
+				assertTrue(medicalRecordsArray.get(i).get("allergies").asText().equals(record1.getAllergies().toString()));
+				assertTrue(medicalRecordsArray.get(i).get("medications").asText().equals(record1.getMedications().toString()));
+			}
+		}
 	}
 
 	@Test
@@ -728,10 +676,13 @@ public class SafetyAlertServiceTest {
 		String all = "nillacilanUpdated";
 		List<String> allergies = new ArrayList<>();
 		allergies.add(all);
-		MedicalRecords record1 = new MedicalRecords("John","Boyd","03/06/2000",medications,allergies );
-		ObjectNode root = null;
-		root= safetyAlertService.deletingRecordsFromMedicalRecords(record1);
-		assertThat(root.findValues("FirstName").contains("John"));
+		MedicalRecords record = new MedicalRecords("Tony","Cooper","03/06/2000",medications,allergies );
+		ObjectNode root= safetyAlertService.deletingRecordsFromMedicalRecords(record);
+		ArrayNode medicalRecordsArray = (ArrayNode) root.get("medicalrecords");
+		for(int i=0;i< medicalRecordsArray.size();i++) {
+			assertFalse(record.getFirstName().equals(medicalRecordsArray.get(i).get("firstName").asText())&&
+					record.getLastName().equals(medicalRecordsArray.get(i).get("lastName").asText()));
+		}
 	}
-
+	
 }

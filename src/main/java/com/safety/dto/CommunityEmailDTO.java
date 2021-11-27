@@ -12,8 +12,5 @@ public class CommunityEmailDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Override
-	public String toString() {
-		return "CommunityEmailDTO [email=" + email + "]";
-	}
+	
 }

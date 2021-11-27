@@ -21,13 +21,4 @@ public class FireStations {
 	public void setStation(String station) {
 		this.station = station;
 	}
-	@Override
-	public String toString() {
-		return "FireStations [address=" + address + ", station=" + station + "]";
-	}
-
-
-
-
-
 }

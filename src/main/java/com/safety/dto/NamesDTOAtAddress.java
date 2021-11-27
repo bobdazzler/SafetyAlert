@@ -21,11 +21,4 @@ public class NamesDTOAtAddress {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    @Override
-    public String toString() {
-        return "NamesDTOAtAddress{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
 }

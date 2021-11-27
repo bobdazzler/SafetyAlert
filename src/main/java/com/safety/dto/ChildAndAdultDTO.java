@@ -23,11 +23,5 @@ public class ChildAndAdultDTO {
 		this.adultAtAddress = adultAtAddress;
 	}
 	
-	@Override
-    public String toString() {
-        return "ChildAndAdultDTO{" +
-                "childrenAtAddress=" + childrenAtAddress +
-                ", adultAtAddress=" + adultAtAddress +
-                '}';
-    }
+	
 }

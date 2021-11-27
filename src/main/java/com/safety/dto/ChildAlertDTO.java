@@ -30,12 +30,5 @@ public class ChildAlertDTO {
 		this.age = age;
 	}
 	
-	@Override
-	public String toString() {
-		return "ChildAlertDTO{" +
-				"firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", ChildrenAge='" + age + '\'' +
-				'}';
-	}
+	
 }

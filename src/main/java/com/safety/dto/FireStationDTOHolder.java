@@ -33,12 +33,5 @@ public class FireStationDTOHolder {
     public void setAgeSummaryForAdult(String ageSummaryForAdult) {
         this.ageSummaryForAdult = ageSummaryForAdult;
     }
-    @Override
-    public String toString() {
-        return "FireStationDTOHolder{" +
-                "fireStationDTOSHolder=" + fireStationDTOSHolder +
-                ", ageSummaryForChildren='" + ageSummaryForChildren + '\'' +
-                ", ageSummaryForAdult='" + ageSummaryForAdult + '\'' +
-                '}';
-    }
+   
 }

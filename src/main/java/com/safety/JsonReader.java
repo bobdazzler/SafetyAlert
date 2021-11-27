@@ -21,24 +21,6 @@ public class JsonReader {
 	List <FireStations> firestations = new ArrayList<>();
 	List <Persons> persons = new ArrayList<>();
 	List <MedicalRecords> medicalrecords = new ArrayList<>();	 
-	public List<FireStations> getFirestations() {
-		return firestations;
-	}
-	public void setFirestations(List<FireStations> firestations) {
-		this.firestations = firestations;
-	}
-	public List<Persons> getPersons() {
-		return persons;
-	}
-	public void setPersons(List<Persons> persons) {
-		this.persons = persons;
-	}
-	public List<MedicalRecords> getMedicalrecords() {
-		return medicalrecords;
-	}
-	public void setMedicalrecords(List<MedicalRecords> medicalrecords) {
-		this.medicalrecords = medicalrecords;
-	}
 	@PostConstruct
 	public SafetyNetData jsonDataReader() {
 		SafetyNetData safetyNetData = null;

@@ -57,15 +57,5 @@ public class FireAlertDTO {
     public void setAllergies(List<String> allergies) {
         this.allergies = allergies;
     }
-    @Override
-    public String toString() {
-        return "FireAlertDTO{" +
-                "stationNumber='" + stationNumber + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age='" + age + '\'' +
-                ", medications=" + medications +
-                ", allergies=" + allergies +
-                '}';
-    }
+   
 }
