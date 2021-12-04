@@ -4,7 +4,14 @@
     <eAnnotations xmi:id="_OE-GME9wEeyuPMutX1cJgg" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_OE-GMU9wEeyuPMutX1cJgg" source="codegen">
         <details xmi:id="_OE-GMk9wEeyuPMutX1cJgg" key="codegenDirectory" value="/SafetyAlert/src/main/java"/>
-        <details xmi:id="_OrCnsE9wEeyuPMutX1cJgg" key="AssociatedSourceCode" value="/SafetyAlert/src/main/java/com/safety/CustomTraceRepository.java;1291076745/1;/SafetyAlert/src/main/java/com/safety/JsonReader.java;4049378699/1;/SafetyAlert/src/main/java/com/safety/SafetyNetAlertApplication.java;184952768/1;/SafetyAlert/src/main/java/com/safety/SafetyNetData.java;2720014647/1;/SafetyAlert/src/main/java/com/safety/controller/AlertController.java;2572964443/1;/SafetyAlert/src/main/java/com/safety/controller/FireStationController.java;4218339329/1;/SafetyAlert/src/main/java/com/safety/controller/MedicalRecordsController.java;3718018327/1;/SafetyAlert/src/main/java/com/safety/controller/PersonController.java;1508089545/1;/SafetyAlert/src/main/java/com/safety/dto/ChildAlertDTO.java;319446179/1;/SafetyAlert/src/main/java/com/safety/dto/ChildAndAdultDTO.java;2662335920/1;/SafetyAlert/src/main/java/com/safety/dto/CommunityEmailDTO.java;4226053450/1;/SafetyAlert/src/main/java/com/safety/dto/FireAlertDTO.java;4214706891/1;/SafetyAlert/src/main/java/com/safety/dto/FireStationDTO.java;1400545714/1;/SafetyAlert/src/main/java/com/safety/dto/FireStationDTOHolder.java;311578014/1;/SafetyAlert/src/main/java/com/safety/dto/FloodStationDTO.java;821487714/1;/SafetyAlert/src/main/java/com/safety/dto/FloodStationHolderDTO.java;1417748395/1;/SafetyAlert/src/main/java/com/safety/dto/FloodStationHolderDTOAndAddress.java;3861864259/1;/SafetyAlert/src/main/java/com/safety/dto/NamesDTOAtAddress.java;435034478/1;/SafetyAlert/src/main/java/com/safety/model/FireStations.java;508620007/1;/SafetyAlert/src/main/java/com/safety/dto/PhoneAlertDTO.java;3523095838/1;/SafetyAlert/src/main/java/com/safety/dto/PersonInfoDTO.java;2229340868/1;/SafetyAlert/src/main/java/com/safety/model/MedicalRecords.java;2351075521/1;/SafetyAlert/src/main/java/com/safety/model/Persons.java;2220881822/1;/SafetyAlert/src/main/java/com/safety/service/SafetyAlertService.java;3734775034/1;"/>
+        <details xmi:id="_OrCnsE9wEeyuPMutX1cJgg" key="AssociatedSourceCode" value="/SafetyAlert/src/main/java/com/safety/CustomTraceRepository.java;1291076745/1;/SafetyAlert/src/main/java/com/safety/JsonReader.java;4049378699/1;/SafetyAlert/src/main/java/com/safety/SafetyNetAlertApplication.java;184952768/1;/SafetyAlert/src/main/java/com/safety/SafetyNetData.java;2720014647/1;/SafetyAlert/src/main/java/com/safety/controller/AlertController.java;2153554133/1;/SafetyAlert/src/main/java/com/safety/controller/FireStationController.java;4218339329/1;/SafetyAlert/src/main/java/com/safety/controller/MedicalRecordsController.java;3718018327/1;/SafetyAlert/src/main/java/com/safety/controller/PersonController.java;1508089545/1;/SafetyAlert/src/main/java/com/safety/dto/ChildAlertDTO.java;319446179/1;/SafetyAlert/src/main/java/com/safety/dto/ChildAndAdultDTO.java;2662335920/1;/SafetyAlert/src/main/java/com/safety/dto/CommunityEmailDTO.java;4226053450/1;/SafetyAlert/src/main/java/com/safety/dto/FireAlertDTO.java;4214706891/1;/SafetyAlert/src/main/java/com/safety/dto/FireStationDTO.java;1400545714/1;/SafetyAlert/src/main/java/com/safety/dto/FireStationDTOHolder.java;311578014/1;/SafetyAlert/src/main/java/com/safety/dto/FloodStationDTO.java;821487714/1;/SafetyAlert/src/main/java/com/safety/dto/FloodStationHolderDTO.java;1417748395/1;/SafetyAlert/src/main/java/com/safety/dto/FloodStationHolderDTOAndAddress.java;3861864259/1;/SafetyAlert/src/main/java/com/safety/dto/NamesDTOAtAddress.java;435034478/1;/SafetyAlert/src/main/java/com/safety/model/FireStations.java;508620007/1;/SafetyAlert/src/main/java/com/safety/dto/PhoneAlertDTO.java;3523095838/1;/SafetyAlert/src/main/java/com/safety/dto/PersonInfoDTO.java;2229340868/1;/SafetyAlert/src/main/java/com/safety/model/MedicalRecords.java;2351075521/1;/SafetyAlert/src/main/java/com/safety/model/Persons.java;2220881822/1;/SafetyAlert/src/main/java/com/safety/service/SafetyAlertService.java;3734775034/1;"/>
+      </contents>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_nlKJYFT2EeyYlKhC7HdnOQ" source="preferences">
+        <contents xmi:type="ecore:EAnnotation" xmi:id="_nlKJYVT2EeyYlKhC7HdnOQ" source="com.yattasolutions.codegen.reverse">
+          <details xmi:id="_nlKJYlT2EeyYlKhC7HdnOQ" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerNewFiles" value="true"/>
+          <details xmi:id="_nlKJY1T2EeyYlKhC7HdnOQ" key="com.yattasolutions.codegen.reverse.roundtrip.RemoveDeletedFiles" value="true"/>
+          <details xmi:id="_nlKJZFT2EeyYlKhC7HdnOQ" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerChangedFiles" value="true"/>
+        </contents>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_OFGCAE9wEeyuPMutX1cJgg">
@@ -3173,13 +3180,16 @@
             <ownedAttribute xmi:id="_OPzdME9wEeyuPMutX1cJgg" name="safetyAlertService" visibility="package" type="_OIhJcE9wEeyuPMutX1cJgg" association="_OSBqwU9wEeyuPMutX1cJgg"/>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OQ2mEE9wEeyuPMutX1cJgg" name="AlertController" specification="_ONyrAU9wEeyuPMutX1cJgg">
               <ownedParameter xmi:id="_OQ2mEU9wEeyuPMutX1cJgg" name="safetyAlertService" type="_OIhJcE9wEeyuPMutX1cJgg"/>
-              <ownedParameter xmi:id="_OQ2mEk9wEeyuPMutX1cJgg" type="_OF1B0E9wEeyuPMutX1cJgg" direction="return"/>
+              <ownedParameter xmi:id="_OQ2mEk9wEeyuPMutX1cJgg" type="_OF1B0E9wEeyuPMutX1cJgg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>this.safetyAlertService = safetyAlertService;&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OQ2mE09wEeyuPMutX1cJgg" name="welcomeAlert" specification="_OF4FIE9wEeyuPMutX1cJgg">
               <ownedParameter xmi:id="_OQ2mFE9wEeyuPMutX1cJgg" direction="return">
+                <name xsi:nil="true"/>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <language>java</language>
@@ -3187,15 +3197,16 @@
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OQ5CUE9wEeyuPMutX1cJgg" name="listOfPeopleServicedByFireStation" specification="_OF56UE9wEeyuPMutX1cJgg">
-              <ownedParameter xmi:id="_OQ5CUU9wEeyuPMutX1cJgg" name="station_Number">
+              <ownedParameter xmi:id="_OQ5CUU9wEeyuPMutX1cJgg" name="stationNumber">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OQ5CUk9wEeyuPMutX1cJgg" type="_OHZIEE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
+                <name xsi:nil="true"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQ5CU09wEeyuPMutX1cJgg" value="*"/>
               </ownedParameter>
               <language>java</language>
               <body>logger.info(&quot;Get /firestations/stationNumber&quot;);&#xD;
-		return safetyAlertService.listOFPeopleServicedByFireStation(station_Number);&#xD;
+		return safetyAlertService.listOFPeopleServicedByFireStation(stationNumber);&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OQ5CVE9wEeyuPMutX1cJgg" name="childrenAtAddressServicedByFireStation" specification="_OF-LwE9wEeyuPMutX1cJgg">
@@ -3203,6 +3214,7 @@
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OQ5pYU9wEeyuPMutX1cJgg" type="_OGyEEE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
+                <name xsi:nil="true"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQ5pYk9wEeyuPMutX1cJgg" value="*"/>
               </ownedParameter>
               <language>java</language>
@@ -3210,14 +3222,15 @@
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OQ5pY09wEeyuPMutX1cJgg" name="listOfPhoneNumbers" specification="_OGB2IE9wEeyuPMutX1cJgg">
-              <ownedParameter xmi:id="_OQ5pZE9wEeyuPMutX1cJgg" name="station_Number">
+              <ownedParameter xmi:id="_OQ5pZE9wEeyuPMutX1cJgg" name="firestation">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OQ5pZU9wEeyuPMutX1cJgg" type="_OIAMEE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
+                <name xsi:nil="true"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQ5pZk9wEeyuPMutX1cJgg" value="*"/>
               </ownedParameter>
               <language>java</language>
-              <body>return safetyAlertService.getPhoneNumberByAddress(station_Number);&#xD;
+              <body>return safetyAlertService.getPhoneNumberByAddress(firestation);&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OQ6QcE9wEeyuPMutX1cJgg" name="medicals" specification="_OGFggE9wEeyuPMutX1cJgg">
@@ -3225,6 +3238,7 @@
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OQ6Qck9wEeyuPMutX1cJgg" type="_OG_fcE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
+                <name xsi:nil="true"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQ6Qc09wEeyuPMutX1cJgg" value="*"/>
               </ownedParameter>
               <language>java</language>
@@ -3234,6 +3248,7 @@
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OQ6QdE9wEeyuPMutX1cJgg" name="householdInStationJurisdiction" specification="_OO_k4E9wEeyuPMutX1cJgg">
               <ownedParameter xmi:id="_OQ6QdU9wEeyuPMutX1cJgg" name="stations" type="_ONZCYE9wEeyuPMutX1cJgg"/>
               <ownedParameter xmi:id="_OQ6Qdk9wEeyuPMutX1cJgg" type="_OHxikE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
+                <name xsi:nil="true"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQ6Qd09wEeyuPMutX1cJgg" value="*"/>
               </ownedParameter>
               <language>java</language>
@@ -3248,6 +3263,7 @@
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OQ63gk9wEeyuPMutX1cJgg" type="_OIDPYE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
+                <name xsi:nil="true"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQ63g09wEeyuPMutX1cJgg" value="*"/>
               </ownedParameter>
               <language>java</language>
@@ -3259,6 +3275,7 @@
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OQ63hk9wEeyuPMutX1cJgg" type="_OG6m8E9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
+                <name xsi:nil="true"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OQ63h09wEeyuPMutX1cJgg" value="*"/>
               </ownedParameter>
               <language>java</language>
@@ -3271,7 +3288,7 @@
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:id="_OF56UE9wEeyuPMutX1cJgg" name="listOfPeopleServicedByFireStation" method="_OQ5CUE9wEeyuPMutX1cJgg" raisedException="_ONxc4U9wEeyuPMutX1cJgg">
-              <ownedParameter xmi:id="_OF6hYE9wEeyuPMutX1cJgg" name="station_Number">
+              <ownedParameter xmi:id="_OF6hYE9wEeyuPMutX1cJgg" name="stationNumber">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OF7IcE9wEeyuPMutX1cJgg" type="_OHZIEE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
@@ -3287,7 +3304,7 @@
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:id="_OGB2IE9wEeyuPMutX1cJgg" name="listOfPhoneNumbers" method="_OQ5pY09wEeyuPMutX1cJgg">
-              <ownedParameter xmi:id="_OGB2IU9wEeyuPMutX1cJgg" name="station_Number">
+              <ownedParameter xmi:id="_OGB2IU9wEeyuPMutX1cJgg" name="firestation">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <ownedParameter xmi:id="_OGCdME9wEeyuPMutX1cJgg" type="_OIAMEE9wEeyuPMutX1cJgg" isOrdered="true" direction="return">
@@ -3818,7 +3835,7 @@
   <UMLLabProfile:Annotations xmi:id="_OF5TQE9wEeyuPMutX1cJgg" base_Element="_OF4FIE9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OF5TQU9wEeyuPMutX1cJgg" name="RequestMapping">
       <annotationParameters xmi:id="_OF5TQk9wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORgtYE9wEeyuPMutX1cJgg" value="&quot;/&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0mTkFT2EeyYlKhC7HdnOQ" value="&quot;/&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -3828,7 +3845,7 @@
   <UMLLabProfile:Annotations xmi:id="_OF89oE9wEeyuPMutX1cJgg" base_Element="_OF56UE9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OF89oU9wEeyuPMutX1cJgg" name="GetMapping">
       <annotationParameters xmi:id="_OF89ok9wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORgtYU9wEeyuPMutX1cJgg" value="&quot;/firestations/stationNumber&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0m6oFT2EeyYlKhC7HdnOQ" value="&quot;/firestation&quot;"/>
       </annotationParameters>
     </annotations>
     <annotations xmi:id="_OF9ksE9wEeyuPMutX1cJgg" name="ResponseBody"/>
@@ -3839,7 +3856,7 @@
   <UMLLabProfile:Annotations xmi:id="_OGAA8U9wEeyuPMutX1cJgg" base_Element="_OF-LwE9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OGAA8k9wEeyuPMutX1cJgg" name="GetMapping">
       <annotationParameters xmi:id="_OGAoAE9wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORgtYk9wEeyuPMutX1cJgg" value="&quot;/childAlert/address&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0nhsFT2EeyYlKhC7HdnOQ" value="&quot;/childAlert&quot;"/>
       </annotationParameters>
     </annotations>
     <annotations xmi:id="_OGBPEE9wEeyuPMutX1cJgg" name="ResponseBody"/>
@@ -3850,7 +3867,7 @@
   <UMLLabProfile:Annotations xmi:id="_OGESYE9wEeyuPMutX1cJgg" base_Element="_OGB2IE9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OGESYU9wEeyuPMutX1cJgg" name="GetMapping">
       <annotationParameters xmi:id="_OGESYk9wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORhUcE9wEeyuPMutX1cJgg" value="&quot;/phoneAlert/firestation&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0nhsVT2EeyYlKhC7HdnOQ" value="&quot;/phoneAlert&quot;"/>
       </annotationParameters>
     </annotations>
     <annotations xmi:id="_OGE5cE9wEeyuPMutX1cJgg" name="ResponseBody"/>
@@ -3861,7 +3878,7 @@
   <UMLLabProfile:Annotations xmi:id="_OGHVsE9wEeyuPMutX1cJgg" base_Element="_OGFggE9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OGHVsU9wEeyuPMutX1cJgg" name="GetMapping">
       <annotationParameters xmi:id="_OGHVsk9wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORhUcU9wEeyuPMutX1cJgg" value="&quot;/fire/address&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0oIwFT2EeyYlKhC7HdnOQ" value="&quot;/fire&quot;"/>
       </annotationParameters>
     </annotations>
     <annotations xmi:id="_OGHVs09wEeyuPMutX1cJgg" name="ResponseBody"/>
@@ -3875,7 +3892,7 @@
   <UMLLabProfile:Annotations xmi:id="_OGLnIU9wEeyuPMutX1cJgg" base_Element="_OGIj0E9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OGLnIk9wEeyuPMutX1cJgg" name="GetMapping">
       <annotationParameters xmi:id="_OGLnI09wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORhUc09wEeyuPMutX1cJgg" value="&quot;/personInfo&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0oIwlT2EeyYlKhC7HdnOQ" value="&quot;/personInfo&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -3885,7 +3902,7 @@
   <UMLLabProfile:Annotations xmi:id="_OGOqcE9wEeyuPMutX1cJgg" base_Element="_OGMOME9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OGOqcU9wEeyuPMutX1cJgg" name="GetMapping">
       <annotationParameters xmi:id="_OGOqck9wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORhUdE9wEeyuPMutX1cJgg" value="&quot;/communityEmail&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0oIw1T2EeyYlKhC7HdnOQ" value="&quot;/communityEmail&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -4093,7 +4110,7 @@
   <UMLLabProfile:Annotations xmi:id="_OPBaEU9wEeyuPMutX1cJgg" base_Element="_OO_k4E9wEeyuPMutX1cJgg">
     <annotations xmi:id="_OPBaEk9wEeyuPMutX1cJgg" name="GetMapping">
       <annotationParameters xmi:id="_OPBaE09wEeyuPMutX1cJgg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_ORhUck9wEeyuPMutX1cJgg" value="&quot;/flood/stations&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_n0oIwVT2EeyYlKhC7HdnOQ" value="&quot;/flood/stations&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>

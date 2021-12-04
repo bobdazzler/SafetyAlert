@@ -67,7 +67,7 @@ public class AlertControllerTest {
 				(Mockito.anyString())).thenReturn(mockedstation);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"/firestations/stationNumber").param("station_Number","3").accept(MediaType.APPLICATION_JSON);
+				"/firestation").param("stationNumber","3").accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		String expected = "[{\"fireStationDTOSHolder\":[{\"firstName\":\"john\",\"lastName\":\"Oghoro\",\"address\":\"asaba\",\"phoneNumber\":\"08062078262\",\"age\":\"47\"}],\"ageSummaryForChildren\":\"0\",\"ageSummaryForAdult\":\"1\"}]";
 		//assert
@@ -91,7 +91,7 @@ public class AlertControllerTest {
 		//act
 		when(safetyAlertServiceMock.childAlertAPI((Mockito.anyString()))).
 		thenReturn(childAndAdultMocked);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/childAlert/address").
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/childAlert").
 				param("address","1509 Culver St").accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		String expected = "[{\"childrenAtAddress\":[{\"firstName\":\"Oghoro\",\"lastName\":\"Kobi\",\"age\":2}],\"adultAtAddress\":[\"Oghoro Tega\"]}]";
@@ -109,8 +109,8 @@ public class AlertControllerTest {
 		//act
 		when(safetyAlertServiceMock.getPhoneNumberByAddress((Mockito.anyString()))).
 		thenReturn(phoneAlertDTOMocked);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/phoneAlert/firestation").
-				param("station_Number","3").accept(MediaType.APPLICATION_JSON);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/phoneAlert").
+				param("firestation","3").accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		String expected = "[{\"phoneNumber\":\"08126351314\"}]";
 		//assert
@@ -132,7 +132,7 @@ public class AlertControllerTest {
 		//act
 		when(safetyAlertServiceMock.listOfPeopleServicedByStationNumberAfterGettingAddress((Mockito.anyString()))).
 		thenReturn(fireAlertDTOMocked);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/fire/address").
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/fire").
 				param("address","1509 Culver St").accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		String expected = "[{\"stationNumber\":\"1\",\"firstName\":\"Oghoro\",\"lastName\":\"Bob\",\"age\":\"34\",\"medications\":[\"aznol:350mg\",\"hydrapermazol:100mg\"],\"allergies\":[\"nillacilan\"]}]";
