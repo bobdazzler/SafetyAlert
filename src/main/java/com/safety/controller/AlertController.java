@@ -43,11 +43,11 @@ public class AlertController {
 	 * @returns firstName, lastName, Address, PhoneNumber of people with age summary of people in the address
 	 *
 	 */
-	@GetMapping("/firestations/stationNumber")
+	@GetMapping("/firestation")
 	@ResponseBody
-	public List<FireStationDTOHolder> listOfPeopleServicedByFireStation(@RequestParam String station_Number) throws ParseException {
+	public List<FireStationDTOHolder> listOfPeopleServicedByFireStation(@RequestParam String stationNumber) throws ParseException {
 		logger.info("Get /firestations/stationNumber");
-		return safetyAlertService.listOFPeopleServicedByFireStation(station_Number);
+		return safetyAlertService.listOFPeopleServicedByFireStation(stationNumber);
 	}
 	/**
 	 * 
@@ -57,7 +57,7 @@ public class AlertController {
 	 * and a list of other persons living at that address. 
 	 * If there are no children at the address, an empty string is returned.
 	 */
-	@GetMapping("/childAlert/address")
+	@GetMapping("/childAlert")
 	@ResponseBody
 	public List<ChildAndAdultDTO> childrenAtAddressServicedByFireStation(@RequestParam String address) {
 		return safetyAlertService.childAlertAPI(address);
@@ -67,10 +67,10 @@ public class AlertController {
 	 * @param station_Number
 	 * @return a list of phone numbers of each person within the fire station’s jurisdiction.
 	 */
-	@GetMapping("/phoneAlert/firestation")
+	@GetMapping("/phoneAlert")
 	@ResponseBody
-	public List<PhoneAlertDTO> listOfPhoneNumbers(@RequestParam String station_Number){
-		return safetyAlertService.getPhoneNumberByAddress(station_Number);
+	public List<PhoneAlertDTO> listOfPhoneNumbers(@RequestParam String firestation){
+		return safetyAlertService.getPhoneNumberByAddress(firestation);
 	}
 	/**
 	 * @param address
@@ -78,7 +78,7 @@ public class AlertController {
 	 *  people living at the address. This list include each person’s name, phone number, age,
 	 *   medications with dosage, and allergies.
 	 */
-	@GetMapping("/fire/address")
+	@GetMapping("/fire")
 	@ResponseBody
 	public List<FireAlertDTO> medicals(@RequestParam String address){
 		return safetyAlertService.listOfPeopleServicedByStationNumberAfterGettingAddress(address);
